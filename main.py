@@ -3,9 +3,9 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-PHOTO_FILENAME = "profile.jpg"  # rename your photo to this and drop it in static/images/
+PHOTO_FILENAME = "profile.jpg"
 
-# Fill this in with your own details — used across the templates
+
 PROJECTS = [
     {
         "title": "Project One",
