@@ -5,6 +5,7 @@
 
 <section class="hero">
   <div class="hero-copy">
+    <div class="eyebrow">~/portfolio $ whoami</div>
     <h1>{{ profile.name }}<br><span class="role">{{ profile.role }}</span></h1>
     <p class="tagline">{{ profile.tagline }}</p>
 
@@ -15,7 +16,7 @@
 
     <div class="hero-cta">
       <a href="{{ url_for('contact') }}" class="btn btn-primary">Get in touch</a>
-      <a href="github.com/Thobelani0107" class="btn btn-ghost">View GitHub</a>
+      <a href="{{ profile.socials.github }}" class="btn btn-ghost">View GitHub</a>
     </div>
   </div>
 
@@ -40,16 +41,16 @@
 </section>
 
 <section class="skills-section">
-  <div class="skills-label">core stack</div>
+  <div class="skills-label">// core stack</div>
   <div class="skills-list">
-    {% for skill in profile.skills %}
+    {% for skill in profile.core_stack %}
       <span class="skill-chip">{{ skill }}</span>
     {% endfor %}
   </div>
 </section>
 
 <section class="about-section">
-  <div class="about-label">about</div>
+  <div class="about-label">01 / about</div>
   <p class="about-text">{{ profile.bio }}</p>
 </section>
 

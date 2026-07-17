@@ -5,9 +5,9 @@
   --bg-alt: #DFDAB2;
   --ink: #1E2A22;
   --ink-soft: #4A5A4C;
-  --accent: #1D3B53;      /* deep petrol blue */
+  --accent: #1D3B53;
   --accent-soft: #33556F;
-  --copper: #8A5A34;      /* muted copper, secondary accent */
+  --copper: #8A5A34;
   --line: rgba(30, 42, 34, 0.18);
   --ring: rgba(29, 59, 83, 0.35);
 }
@@ -209,7 +209,7 @@ a {
   color: var(--accent);
 }
 
-/* ---------- Photo frame (signature element) ---------- */
+/* ---------- Photo frame ---------- */
 
 .photo-wrap {
   position: relative;
@@ -304,6 +304,11 @@ a {
   border-top: 1px solid var(--line);
 }
 
+.skills-section + .skills-section {
+  padding-top: 0;
+  border-top: none;
+}
+
 .skills-label {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
@@ -332,6 +337,24 @@ a {
 .skill-chip:hover {
   transform: translateY(-2px);
   background: rgba(255,255,255,0.4);
+}
+
+.skill-chip.soft {
+  color: var(--copper);
+  border-color: rgba(138, 90, 52, 0.35);
+}
+
+.skill-chip.soft:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.skills-list-lg {
+  gap: 16px;
+}
+
+.skill-chip-lg {
+  font-size: 15px;
+  padding: 12px 22px;
 }
 
 /* ---------- About / bio strip (homepage teaser) ---------- */
@@ -370,7 +393,7 @@ footer {
   gap: 10px;
 }
 
-/* ---------- Shared page header (about/skills/education/projects/contact) ---------- */
+/* ---------- Shared page header ---------- */
 
 .page-hero {
   padding: 60px 0 40px;
@@ -434,69 +457,129 @@ footer {
   color: var(--copper);
 }
 
-/* ---------- Soft skills variant ---------- */
-
-.skills-section + .skills-section {
-  padding-top: 0;
-  border-top: none;
-}
-
-.skill-chip.soft {
-  color: var(--copper);
-  border-color: rgba(138, 90, 52, 0.35);
-}
-
-.skill-chip.soft:hover {
-  background: rgba(255, 255, 255, 0.4);
-}
-
 /* ---------- Education timeline ---------- */
 
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  padding-bottom: 100px;
+.edu-timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 60px;
 }
 
-.timeline-item {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 30px;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--line);
+.edu-timeline::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  background: var(--line);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
 }
 
-.timeline-item:first-child {
-  padding-top: 0;
+.edu-node {
+  padding: 10px 50px;
+  position: relative;
+  width: 50%;
 }
 
-.timeline-years {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
+.edu-node.left {
+  left: 0;
+}
+
+.edu-node.right {
+  left: 50%;
+}
+
+.edu-marker {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
   color: var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 14px;
+  z-index: 2;
 }
 
-.timeline-body h3 {
+.edu-node.left .edu-marker {
+  right: -23px;
+}
+
+.edu-node.right .edu-marker {
+  left: -23px;
+}
+
+.edu-card {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 8px 24px rgba(30, 42, 34, 0.1);
+}
+
+.edu-card h2 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 20px;
-  margin-bottom: 6px;
-}
-
-.timeline-school {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
-  color: var(--copper);
+  color: var(--ink);
   margin-bottom: 10px;
 }
 
-.timeline-body p {
+.edu-card p {
   color: var(--ink-soft);
-  line-height: 1.6;
-  max-width: 560px;
+  line-height: 1.65;
+  font-size: 14px;
 }
 
-/* ---------- Projects grid (sketch layout: alternating left/right via markup order) ---------- */
+.edu-details {
+  margin-top: 10px;
+}
+
+/* ---------- Certifications ---------- */
+
+.cert-section {
+  padding-top: 10px;
+  padding-bottom: 100px;
+}
+
+.cert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cert-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.cert-item:first-child {
+  padding-top: 0;
+}
+
+.cert-name {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.cert-issuer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--copper);
+  white-space: nowrap;
+}
+
+/* ---------- Projects grid ---------- */
 
 .project-grid {
   display: grid;
@@ -527,35 +610,25 @@ footer {
 }
 
 .description {
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 8px 24px rgba(30, 42, 34, 0.08);
+  padding: 0 8px;
 }
 
 .description h3 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   color: var(--ink);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .description p {
   color: var(--ink-soft);
   line-height: 1.75;
   font-size: 15px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .description .skills-list {
-  margin-bottom: 16px;
-}
-
-@media (max-width: 768px) {
-  .project-grid {
-    grid-template-columns: 1fr;
-  }
+  margin-bottom: 18px;
 }
 
 /* ---------- Contact page ---------- */
@@ -631,20 +704,31 @@ footer {
   .fact-row {
     max-width: 100%;
   }
-  .timeline-item {
-    grid-template-columns: 1fr;
-    gap: 6px;
+  .edu-timeline::after {
+    left: 23px;
+  }
+  .edu-node,
+  .edu-node.left,
+  .edu-node.right {
+    width: 100%;
+    left: 0;
+    padding-left: 60px;
+    padding-right: 10px;
+  }
+  .edu-node.left .edu-marker,
+  .edu-node.right .edu-marker {
+    left: 0;
+    right: auto;
   }
 }
 
-@media (max-width: 780px) {
-  .project-row,
-  .project-row.reverse {
+@media (max-width: 768px) {
+  .project-grid {
     grid-template-columns: 1fr;
   }
-  .project-row.reverse .project-shot,
-  .project-row.reverse .project-info {
-    order: initial;
+  .cert-item {
+    flex-direction: column;
+    gap: 4px;
   }
 }
 
@@ -653,4 +737,26 @@ footer {
   .eyebrow::before {
     animation: none;
   }
+}
+
+/* ---------- Categorized technical skills ---------- */
+
+.tech-skills {
+  display: flex;
+  flex-direction: column;
+}
+
+.skills-subsection {
+  padding: 0 0 34px;
+  border-top: none;
+}
+
+.skills-subsection:first-child {
+  padding-top: 0;
+}
+
+.soft-skills-section {
+  border-top: 1px solid var(--line);
+  padding-top: 40px;
+  margin-top: 10px;
 }

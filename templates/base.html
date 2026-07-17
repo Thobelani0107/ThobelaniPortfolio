@@ -11,7 +11,7 @@
   <div class="container">
 
     <nav class="nav">
-      <a href="{{ url_for('home') }}" class="nav-logo"><h1>Thobelani Zulu</h1></span></a>
+      <a href="{{ url_for('home') }}" class="nav-logo"><span class="bracket">[</span>{{ profile.name }}<span class="bracket">]</span></a>
       <div class="nav-links">
         <a href="{{ url_for('home') }}">home</a>
         <a href="{{ url_for('about') }}">about</a>

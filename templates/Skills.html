@@ -8,16 +8,20 @@
   <p class="page-subtitle">Tools, technologies, and the way I like to work.</p>
 </section>
 
-<section class="skills-section">
-  <div class="skills-label">// technical skills</div>
-  <div class="skills-list skills-list-lg">
-    {% for skill in profile.skills %}
-      <span class="skill-chip skill-chip-lg">{{ skill }}</span>
-    {% endfor %}
-  </div>
+<section class="tech-skills">
+  {% for category, items in profile.skills.items() %}
+    <div class="skills-section skills-subsection">
+      <div class="skills-label">// {{ category.lower() }}</div>
+      <div class="skills-list skills-list-lg">
+        {% for skill in items %}
+          <span class="skill-chip skill-chip-lg">{{ skill }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
 </section>
 
-<section class="skills-section">
+<section class="skills-section soft-skills-section">
   <div class="skills-label">// soft skills</div>
   <div class="skills-list skills-list-lg">
     {% for skill in profile.soft_skills %}
