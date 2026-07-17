@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ profile.name }} — {{ profile.role }}{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero-copy">
+    <h1>{{ profile.name }}<br><span class="role">{{ profile.role }}</span></h1>
+    <p class="tagline">{{ profile.tagline }}</p>
+
+    <div class="status-badge">
+      <span class="dot"></span>
+      {{ profile.status }} · {{ profile.location }}
+    </div>
+
+    <div class="hero-cta">
+      <a href="{{ url_for('contact') }}" class="btn btn-primary">Get in touch</a>
+      <a href="github.com/Thobelani0107" class="btn btn-ghost">View GitHub</a>
+    </div>
+  </div>
+
+  <div class="photo-wrap">
+    <div class="photo-ring">
+      <div class="ring-dashed outer"></div>
+      <div class="ring-dashed"></div>
+      <div class="photo-circle">
+        {% if has_photo %}
+          <img src="{{ url_for('static', filename='images/' + photo_filename) }}" alt="{{ profile.name }}">
+        {% else %}
+          <div class="photo-placeholder">
+            <span class="icon">◎</span>
+            Add your photo<br>
+            static/images/{{ photo_filename }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="orbit-tag">status: online</div>
+    </div>
+  </div>
+</section>
+
+<section class="skills-section">
+  <div class="skills-label">core stack</div>
+  <div class="skills-list">
+    {% for skill in profile.skills %}
+      <span class="skill-chip">{{ skill }}</span>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="about-label">about</div>
+  <p class="about-text">{{ profile.bio }}</p>
+</section>
+
+{% endblock %}

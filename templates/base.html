@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ profile.name }} — {{ profile.role }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="container">
+
+    <nav class="nav">
+      <a href="{{ url_for('home') }}" class="nav-logo"><h1>Thobelani Zulu</h1></span></a>
+      <div class="nav-links">
+        <a href="{{ url_for('home') }}">home</a>
+        <a href="{{ url_for('about') }}">about</a>
+        <a href="{{ url_for('skills') }}">skills</a>
+        <a href="{{ url_for('education') }}">education</a>
+        <a href="{{ url_for('projects') }}">projects</a>
+        <a href="{{ url_for('contact') }}">contact</a>
+      </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+      <span>&copy; 2026 {{ profile.name }}</span>
+      <span>Built with Flask</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

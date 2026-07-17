@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Projects — {{ profile.name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="eyebrow">04 / projects</div>
+  <h1>Projects</h1>
+</section>
+
+<div class="project-grid">
+  {% for project in projects %}
+    {% if loop.index0 is odd %}
+      <div class="description">
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.description }}</p>
+        <div class="skills-list">
+          {% for tech in project.tech %}
+            <span class="skill-chip">{{ tech }}</span>
+          {% endfor %}
+        </div>
+        <a href="{{ project.link }}" class="btn btn-ghost project-link">View project →</a>
+      </div>
+      <div class="project-card">
+        <img src="{{ url_for('static', filename='images/' + project.image) }}" alt="{{ project.title }} screenshot">
+      </div>
+    {% else %}
+      <div class="project-card">
+        <img src="{{ url_for('static', filename='images/' + project.image) }}" alt="{{ project.title }} screenshot">
+      </div>
+      <div class="description">
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.description }}</p>
+        <div class="skills-list">
+          {% for tech in project.tech %}
+            <span class="skill-chip">{{ tech }}</span>
+          {% endfor %}
+        </div>
+        <a href="{{ project.link }}" class="btn btn-ghost project-link">View project →</a>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,656 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #E9E5C9;
+  --bg-alt: #DFDAB2;
+  --ink: #1E2A22;
+  --ink-soft: #4A5A4C;
+  --accent: #1D3B53;      /* deep petrol blue */
+  --accent-soft: #33556F;
+  --copper: #8A5A34;      /* muted copper, secondary accent */
+  --line: rgba(30, 42, 34, 0.18);
+  --ring: rgba(29, 59, 83, 0.35);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------- Nav ---------- */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-logo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.nav-logo .bracket {
+  color: var(--copper);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+}
+
+.nav-links a {
+  color: var(--ink-soft);
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 48px;
+  padding: 90px 0 100px;
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--copper);
+  animation: blink 2.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(38px, 5.2vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+}
+
+.hero h1 .role {
+  color: var(--accent-soft);
+}
+
+.hero p.tagline {
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 480px;
+  margin-bottom: 30px;
+  line-height: 1.55;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  border: 1px solid var(--ring);
+  background: rgba(255,255,255,0.25);
+  padding: 8px 14px;
+  border-radius: 999px;
+  margin-bottom: 34px;
+}
+
+.status-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3E7A4F;
+  box-shadow: 0 0 0 3px rgba(62, 122, 79, 0.18);
+}
+
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  padding: 13px 22px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.btn-primary:hover {
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- Photo frame (signature element) ---------- */
+
+.photo-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-ring {
+  position: relative;
+  width: min(340px, 80vw);
+  height: min(340px, 80vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-dashed {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px dashed var(--ring);
+  animation: spin 40s linear infinite;
+}
+
+.ring-dashed.outer {
+  inset: -18px;
+  border-color: rgba(138, 90, 52, 0.3);
+  animation-duration: 60s;
+  animation-direction: reverse;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.photo-circle {
+  position: relative;
+  width: 82%;
+  height: 82%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-alt);
+  border: 3px solid var(--bg);
+  box-shadow: 0 12px 32px rgba(30, 42, 34, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-placeholder {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.photo-placeholder .icon {
+  font-size: 30px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.orbit-tag {
+  position: absolute;
+  bottom: -6px;
+  right: 6px;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(30,42,34,0.25);
+}
+
+/* ---------- Skills strip ---------- */
+
+.skills-section {
+  padding: 50px 0 90px;
+  border-top: 1px solid var(--line);
+}
+
+.skills-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+  letter-spacing: 0.04em;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skill-chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  border: 1px solid var(--ring);
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.2);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.skill-chip:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.4);
+}
+
+/* ---------- About / bio strip (homepage teaser) ---------- */
+
+.about-section {
+  padding: 0 0 100px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  border-top: 1px solid var(--line);
+  padding-top: 50px;
+}
+
+.about-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--copper);
+}
+
+.about-text {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  max-width: 620px;
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ---------- Shared page header (about/skills/education/projects/contact) ---------- */
+
+.page-hero {
+  padding: 60px 0 40px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 50px;
+}
+
+.page-hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 4.5vw, 48px);
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 480px;
+}
+
+/* ---------- About page ---------- */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 50px;
+  align-items: start;
+  padding-bottom: 100px;
+}
+
+.photo-ring-sm {
+  width: 220px;
+  height: 220px;
+}
+
+.about-copy .about-text {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin-bottom: 30px;
+}
+
+.fact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fact-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  max-width: 380px;
+}
+
+.fact-label {
+  color: var(--copper);
+}
+
+/* ---------- Soft skills variant ---------- */
+
+.skills-section + .skills-section {
+  padding-top: 0;
+  border-top: none;
+}
+
+.skill-chip.soft {
+  color: var(--copper);
+  border-color: rgba(138, 90, 52, 0.35);
+}
+
+.skill-chip.soft:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- Education timeline ---------- */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 100px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 30px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.timeline-item:first-child {
+  padding-top: 0;
+}
+
+.timeline-years {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.timeline-body h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.timeline-school {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--copper);
+  margin-bottom: 10px;
+}
+
+.timeline-body p {
+  color: var(--ink-soft);
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+/* ---------- Projects grid (sketch layout: alternating left/right via markup order) ---------- */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding-bottom: 100px;
+}
+
+.project-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(30, 42, 34, 0.12);
+  transition: transform 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.description {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(30, 42, 34, 0.08);
+}
+
+.description h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.description p {
+  color: var(--ink-soft);
+  line-height: 1.75;
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.description .skills-list {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Contact page ---------- */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  padding-bottom: 100px;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.18);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-card:not(.contact-card-static):hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.contact-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--copper);
+}
+
+.contact-value {
+  font-size: 15px;
+  word-break: break-word;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 50px 0 60px;
+    text-align: center;
+  }
+  .hero p.tagline {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-cta {
+    justify-content: center;
+  }
+  .status-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .photo-wrap {
+    margin-top: 20px;
+  }
+  .about-section {
+    grid-template-columns: 1fr;
+  }
+  .nav-links {
+    gap: 18px;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .fact-row {
+    max-width: 100%;
+  }
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 780px) {
+  .project-row,
+  .project-row.reverse {
+    grid-template-columns: 1fr;
+  }
+  .project-row.reverse .project-shot,
+  .project-row.reverse .project-info {
+    order: initial;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-dashed,
+  .eyebrow::before {
+    animation: none;
+  }
+}

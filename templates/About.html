@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}About — {{ profile.name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <h1>About Me</h1>
+</section>
+
+<section class="about-grid">
+  <div class="photo-ring photo-ring-sm">
+    <div class="ring-dashed outer"></div>
+    <div class="ring-dashed"></div>
+    <div class="photo-circle">
+      {% if has_photo %}
+        <img src="{{ url_for('static', filename='images/' + photo_filename) }}" alt="{{ profile.name }}">
+      {% else %}
+        <div class="photo-placeholder">
+          <span class="icon">◎</span>
+          Add your photo<br>
+          static/images/{{ photo_filename }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="about-copy">
+    <p class="about-text">{{ profile.bio }}</p>
+
+    <div class="fact-list">
+      <div class="fact-row"><span class="fact-label">Role</span><span>{{ profile.role }}</span></div>
+      <div class="fact-row"><span class="fact-label">Location</span><span>{{ profile.location }}</span></div>
+      <div class="fact-row"><span class="fact-label">Status</span><span>{{ profile.status }}</span></div>
+    </div>
+  </div>
+</section>
+{% endblock %}

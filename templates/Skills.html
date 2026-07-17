@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Skills — {{ profile.name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="eyebrow">02 / skills</div>
+  <h1>What I Work With</h1>
+  <p class="page-subtitle">Tools, technologies, and the way I like to work.</p>
+</section>
+
+<section class="skills-section">
+  <div class="skills-label">// technical skills</div>
+  <div class="skills-list skills-list-lg">
+    {% for skill in profile.skills %}
+      <span class="skill-chip skill-chip-lg">{{ skill }}</span>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="skills-section">
+  <div class="skills-label">// soft skills</div>
+  <div class="skills-list skills-list-lg">
+    {% for skill in profile.soft_skills %}
+      <span class="skill-chip skill-chip-lg soft">{{ skill }}</span>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
