@@ -3,26 +3,36 @@
 
 {% block content %}
 <section class="page-hero">
-  <div class="eyebrow">02 / skills</div>
+  <div class="eyebrow"></div>
   <h1>What I Work With</h1>
-  <p class="page-subtitle">Tools, technologies, and the way I like to work.</p>
+  <p class="page-subtitle">Hover a category to see the skills inside.</p>
 </section>
 
-<section class="tech-skills">
+<h2 class="section-title">Technical Skills</h2>
+<section class="skills-container">
   {% for category, items in profile.skills.items() %}
-    <div class="skills-section skills-subsection">
-      <div class="skills-label">// {{ category.lower() }}</div>
-      <div class="skills-list skills-list-lg">
-        {% for skill in items %}
-          <span class="skill-chip skill-chip-lg">{{ skill }}</span>
-        {% endfor %}
+    <div class="skill-card">
+      <h3>{{ category }}</h3>
+      <div class="skill-info">
+        <div class="icon-grid">
+          {% for skill in items %}
+            <div class="skill-icon-tile">
+              {% if skill.icon %}
+                <i class="{{ skill.icon }}"></i>
+              {% else %}
+                <span class="icon-fallback">{{ skill.name[:2] }}</span>
+              {% endif %}
+              <span class="icon-label">{{ skill.name }}</span>
+            </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   {% endfor %}
 </section>
 
+<h2 class="section-title soft-title">Soft Skills</h2>
 <section class="skills-section soft-skills-section">
-  <div class="skills-label">// soft skills</div>
   <div class="skills-list skills-list-lg">
     {% for skill in profile.soft_skills %}
       <span class="skill-chip skill-chip-lg soft">{{ skill }}</span>

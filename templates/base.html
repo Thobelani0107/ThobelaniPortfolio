@@ -5,19 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}{{ profile.name }} — {{ profile.role }}{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 </head>
 <body>
 
   <div class="container">
 
     <nav class="nav">
-      <a href="{{ url_for('home') }}" class="nav-logo"><span class="bracket">[</span>{{ profile.name }}<span class="bracket">]</span></a>
+      <a href="{{ url_for('home') }}" class="nav-logo"><h2>Thobelani Zulu</h2></a>
       <div class="nav-links">
         <a href="{{ url_for('home') }}">home</a>
         <a href="{{ url_for('about') }}">about</a>
-        <a href="{{ url_for('skills') }}">skills</a>
-        <a href="{{ url_for('education') }}">education</a>
-        <a href="{{ url_for('projects') }}">projects</a>
         <a href="{{ url_for('contact') }}">contact</a>
       </div>
     </nav>

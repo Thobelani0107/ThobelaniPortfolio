@@ -3,7 +3,7 @@
 
 {% block content %}
 <section class="page-hero">
-  <div class="eyebrow">01 / about</div>
+  <div class="eyebrow"></div>
   <h1>About Me</h1>
 </section>
 
@@ -33,5 +33,10 @@
       <div class="fact-row"><span class="fact-label">Status</span><span>{{ profile.status }}</span></div>
     </div>
   </div>
+  <div class="hero-cta">
+    <a href="{{ url_for('projects') }}" class="nav-link nav-link-ghost">Projects</a>
+    <a href="{{ url_for('skills') }}" class="nav-link nav-link-ghost">Skills</a>
+    <a href="{{ url_for('education') }}" class="nav-link nav-link-ghost">Education</a>
+</div>
 </section>
 {% endblock %}

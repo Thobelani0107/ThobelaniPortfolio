@@ -1,34 +1,70 @@
 import os
-from flask import Flask, render_template
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "dev-only-change-this")
 
-PHOTO_FILENAME = "profile.jpg"  # rename your photo to this and drop it in static/images/
+SMTP_USERNAME = os.environ.get("SMTP_USERNAME")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
+CONTACT_RECEIVER = "ziyanda1507@gmail.com"
+
+PHOTO_FILENAME = "profile.jpg"
 
 PROFILE = {
     "name": "Thobelani Z. Zulu",
-    "role": "ICT Graduate",
-    "tagline": "Turning data into decisions, one model at a time.",
-    "location": "Durban, South Africa",
-    "status": "Open to graduate opportunities",
+    "role": "Backend Developer",
+    "tagline": "Turning logic into systems, one line at a time. I build backend applications and APIs with Python, Flask, and SQL, and I'm comfortable working across C#, HTML, and CSS. Self",
+    "location": "South Africa",
+    "status": "Open to connecting and new opportunities",
     "bio": (
-        "Bachelor's graduate in Information Technology with a proactive, curious "
-        "approach to learning and a strong record of translating problems into "
-        "practical, data-driven solutions — including a team-led research project "
-        "that built a real-time taxi demand prediction model to optimize pricing "
-        "decisions. Comfortable working across cross-functional teams, with "
-        "hands-on experience spanning software development, databases, "
-        "automation, and analytics. Motivated by technology's role in building "
-        "smarter, more sustainable systems."
+        "I'm a self-taught backend developer with a strong focus on Python,"
+        "and hands-on experience with C#, SQL, HTML, and CSS through course work and self-directed projects. I enjoy solving problems,"
+        "working well with others,"
+        "and I'm always looking to learn something new."
     ),
     "core_stack": ["Python", "Flask", "SQL", "Machine Learning", "MySQL", "REST APIs"],
     "skills": {
-        "Languages": ["Python", "C#", "SQL", "HTML", "CSS"],
-        "Frameworks & Libraries": ["Flask", "Tkinter", "smtplib", "Requests", "BeautifulSoup"],
-        "Data & ML": ["Machine Learning", "Business Intelligence", "Big Data Fundamentals", "Data Modelling", "Predictive Analytics"],
-        "Databases": ["MySQL", "SQL (relational design & querying)"],
-        "APIs & Integrations": ["REST APIs", "Sheety API", "Google Sheets API", "Web Scraping"],
-        "Concepts": ["Object-Oriented Programming", "Full-Stack Web Development", "Agile Teamwork", "Research & Presentation"],
+        "Languages": [
+            {"name": "Python", "icon": "devicon-python-plain colored"},
+            {"name": "C#", "icon": "devicon-csharp-plain colored"},
+            {"name": "SQL", "icon": "devicon-mysql-plain colored"},
+            {"name": "HTML", "icon": "devicon-html5-plain colored"},
+            {"name": "CSS", "icon": "devicon-css3-plain colored"},
+        ],
+        "Frameworks & Libraries": [
+            {"name": "Flask", "icon": "devicon-flask-original"},
+            {"name": "Tkinter", "icon": "devicon-python-plain colored"},
+            {"name": "smtplib", "icon": None},
+            {"name": "Requests", "icon": "devicon-python-plain colored"},
+            {"name": "BeautifulSoup", "icon": None},
+        ],
+        "Data & ML": [
+            {"name": "Machine Learning", "icon": None},
+            {"name": "Business Intelligence", "icon": None},
+            {"name": "Big Data Fundamentals", "icon": None},
+            {"name": "Data Modelling", "icon": None},
+            {"name": "Predictive Analytics", "icon": None},
+        ],
+        "Databases": [
+            {"name": "MySQL", "icon": "devicon-mysql-plain colored"},
+            {"name": "Relational Design & Querying", "icon": None},
+            {"name": "sqlalchemy", "icon": None},
+        ],
+        "APIs & Integrations": [
+            {"name": "REST APIs", "icon": None},
+            {"name": "Sheety API", "icon": None},
+            {"name": "Google Sheets API", "icon": "devicon-google-plain colored"},
+            {"name": "Web Scraping", "icon": None},
+        ],
+        "Concepts": [
+            {"name": "Object-Oriented Programming", "icon": None},
+            {"name": "Full-Stack Web Development", "icon": None},
+            {"name": "Agile Teamwork", "icon": None},
+            {"name": "Research & Presentation", "icon": None},
+        ],
     },
     "soft_skills": [
         "Analytical & Problem-Solving",
@@ -49,9 +85,11 @@ EDUCATION = [
         "qualification": "Bachelor of Information and Communication Technology Honours",
         "years": "2026 - Present",
         "details": (
-            "Electives includes Advanced Data Analytics and Advanced Cybersecurity "
+            "Electives in Advanced Data Analytics and Advanced Cybersecurity"
+
         ),
-    },{
+    },
+    {
         "school": "Durban University of Technology",
         "qualification": "Bachelor of Information and Communication Technology",
         "years": "2023 - 2025",
@@ -60,13 +98,13 @@ EDUCATION = [
             "and database management as core modules. Graduated with practical "
             "software development skills in Python, C#, and web technologies."
         ),
-    },{
-        "school": "Magwegwana High School",
-        "qualification": "Matric",
+    },
+    {
+        "school": "Magwegwana",
+        "qualification": "National Senior Certificate",
         "years": "2022",
         "details": (
-            "Commerce studies includes Accounting, Economics, Business Studies and Mathematics"
-            "with 36 points"
+            "Commerce studies include Accounting, Economics, Business Studies and Pure Mathematics"
         ),
     },
 ]
@@ -90,7 +128,7 @@ PROJECTS = [
             "and presenting findings."
         ),
         "tech": ["Python", "Machine Learning", "Data Modelling"],
-        "link": "https://github.com/Thobelani0107",
+        "link": "https://github.com/Project-301-Group",
         "image": "project-taxi-demand.png",
     },
     {
@@ -101,7 +139,7 @@ PROJECTS = [
             "Flask for item submission, search, and retrieval."
         ),
         "tech": ["Python", "Flask", "HTML/CSS"],
-        "link": "https://github.com/Thobelani0107",
+        "link": "https://github.com/Inhlwathi-Bytes/Lost-and-Found",
         "image": "project-lost-and-found.png",
     },
     {
@@ -112,31 +150,31 @@ PROJECTS = [
             "database design and back-end integration."
         ),
         "tech": ["C#", "MySQL"],
-        "link": "https://github.com/Thobelani0107",
+        "link": "https://github.com/Izimpisi/Sastri-Library-Backend",
         "image": "project-library-system.png",
     },
     {
-        "title": "Automated Birthday Email System",
+        "title": "Pong",
         "description": (
-            "Built an automation script that reads a contacts list and sends "
-            "personalized birthday emails automatically, integrating smtplib "
-            "for delivery and the Sheety API to read/write Google Sheets."
+            "Recreate pong game with Tkinter GUI "
+            "support multiple player"
         ),
-        "tech": ["Python", "smtplib", "Sheety API"],
-        "link": "https://github.com/Thobelani0107",
-        "image": "project-birthday-email.png",
+        "tech": ["Python", "TKinter"],
+        "link": "https://github.com/Thobelani0107/Day_20_pong_game.git",
+        "image": "pong.png",
     },
     {
-        "title": "Pomodoro Timer",
+        "title": "Snake Game",
         "description": (
-            "Developed a desktop productivity timer with a Tkinter GUI, "
-            "supporting configurable work and break intervals."
+            "Recreated snake game with a Tkinter GUI, "
         ),
         "tech": ["Python", "Tkinter"],
-        "link": "https://github.com/Thobelani0107",
-        "image": "project-pomodoro.png",
+        "link": "https://github.com/Thobelani0107/day_20_of_100days_coding_using_python",
+        "image": "snake.png",
     },
 ]
+
+
 
 
 def get_context(**extra):
@@ -179,8 +217,37 @@ def projects():
     return render_template("projects.html", **get_context(projects=PROJECTS))
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        sender_email = request.form.get("email", "").strip()
+        message = request.form.get("message", "").strip()
+
+        if not name or not sender_email or not message:
+            flash("Please fill in every field.", "error")
+            return redirect(url_for("contact"))
+
+        try:
+            msg = MIMEMultipart()
+            msg["From"] = SMTP_USERNAME
+            msg["To"] = CONTACT_RECEIVER
+            msg["Reply-To"] = sender_email
+            msg["Subject"] = f"Portfolio message from {name}"
+            body = f"Name: {name}\nEmail: {sender_email}\n\n{message}"
+            msg.attach(MIMEText(body, "plain"))
+
+            with smtplib.SMTP("smtp.gmail.com", 587) as server:
+                server.starttls()
+                server.login(SMTP_USERNAME, SMTP_PASSWORD)
+                server.send_message(msg)
+
+            flash("Message sent — thanks for reaching out!", "success")
+        except Exception:
+            flash("Something went wrong sending that. Try emailing me directly instead.", "error")
+
+        return redirect(url_for("contact"))
+
     return render_template("contact.html", **get_context())
 
 
