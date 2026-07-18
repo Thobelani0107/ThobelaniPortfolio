@@ -1,6 +1,2 @@
-os
-smtplib
-email.mime.text
-email.mime.multipart
 flask
 gunicorn
